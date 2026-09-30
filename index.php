@@ -24,6 +24,7 @@ require "config.php";
             <a href="#projects" class="w3-button">Projects</a>
             <a href="#about" class="w3-button">About</a>
             <a href="#contact" class="w3-button">Contact</a>
+            <a href="admin/" class="w3-button">Dashboard</a>
         </nav>
     </div>
 
