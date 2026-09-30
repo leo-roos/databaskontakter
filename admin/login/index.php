@@ -3,6 +3,11 @@ require "../../config.php";
 
 session_start();
 
+if (isset($_SESSION["user"]) && $_SESSION["logged_in"]) {
+    header("Location: ../");
+    exit();
+}
+
 $failedLogin = false;
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
