@@ -1,3 +1,7 @@
+<?php
+require "config.php";
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -108,7 +112,7 @@
         <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h2>
         <p>Let's get in touch and talk about your next project.</p>
 
-        <form action="form-request.php" method="post" target="_blank">
+        <form action="form-request.php" method="post">
             <input class="w3-input w3-section w3-border" type="text" placeholder="Name" required="" name="Name">
 
             <input class="w3-input w3-section w3-border" type="email" placeholder="Email" required="" name="Email">
@@ -128,13 +132,9 @@
 
         <div class="w3-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
             <?php
-                $DB_servername = 'localhost';
-                $DB_username = 'root';
-                $DB_password = '';
-                $DB_name = 'introduction';
                 try
                 {
-                    $con = new PDO("mysql:host=$DB_servername;dbname=$DB_name;charset=utf8mb4", $DB_username, $DB_password);
+                    $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
                     // $con = new PDO("mysql:host = $DB_servername; dbname = $DB_name", $DB_username, $DB_password);
                     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     

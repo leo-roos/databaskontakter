@@ -1,14 +1,10 @@
 <?php
+require "config.php";
 
 function registerNewUser($USER_name, $USER_email, $subject, $comment) {
-    $DB_servername = 'localhost';
-    $DB_username = 'root';
-    $DB_password = '';
-    $DB_name = 'introduction';
-
     try
     {
-        $con = new PDO("mysql:host=$DB_servername;dbname=$DB_name;charset=utf8mb4", $DB_username, $DB_password);
+        $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
         // $con = new PDO("mysql:host = $DB_servername; dbname = $DB_name", $DB_username, $DB_password);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
@@ -18,7 +14,7 @@ function registerNewUser($USER_name, $USER_email, $subject, $comment) {
 
         echo "New request " . $USER_name . " added to contacts.";
 
-        header("Location: /databaskontakter/");
+        header("Location: /databaskontakter#contact");
     }
 
     catch(PDOException $e)
