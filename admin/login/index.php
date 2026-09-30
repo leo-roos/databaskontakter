@@ -20,7 +20,8 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
         if (password_verify($password, $row["password_hash"])) {
             $_SESSION["user"] = $row["id"];
-            $_SESSION["username"] = $row["username"];
+            $_SESSION["username"] = $row["name"];
+            $_SESSION["logged_in"] = true;
             header("Location: ../");
             exit();
         } else {
