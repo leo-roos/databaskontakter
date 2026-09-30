@@ -22,6 +22,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
             $_SESSION["user"] = $row["id"];
             $_SESSION["username"] = $row["username"];
             header("Location: ../");
+            exit();
         } else {
             $failedLogin = true;
         }
