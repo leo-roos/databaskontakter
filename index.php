@@ -12,7 +12,7 @@
 <body class="w3-content" style="max-width:1500px">
     <?php
     include "includes/navbar.php";
-    include "includes/header.php";
+    include "includes/hero.php";
     include "includes/projects.php";
     include "includes/about.php";
     include "includes/contact.php";
