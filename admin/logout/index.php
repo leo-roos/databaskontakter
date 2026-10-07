@@ -24,7 +24,8 @@ try
 }
 catch(PDOException $e)
 {
-    echo "Connection failed: " . $e->getMessage();
+    error_log("Connection failed: " . $e->getMessage());
+    echo "Ett server fel uppstod! Kontakta hemsidans ägare för hjälp.";
 }
 
 ?>
