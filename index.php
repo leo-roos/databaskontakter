@@ -24,6 +24,7 @@ require "config.php";
             <a href="#projects" class="w3-button">Projects</a>
             <a href="#about" class="w3-button">About</a>
             <a href="#contact" class="w3-button">Contact</a>
+            <a href="admin/" class="w3-button">Dashboard</a>
         </nav>
     </div>
 
@@ -126,43 +127,7 @@ require "config.php";
             </button>
         </form>
     </section>
-
-    <section id="contacts" class="w3-container w3-padding-32">
-        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contacts</h2>
-
-        <div class="w3-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
-            <?php
-                try
-                {
-                    $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
-                    // $con = new PDO("mysql:host = $DB_servername; dbname = $DB_name", $DB_username, $DB_password);
-                    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    
-                    $sql = "SELECT * FROM `contact`;";
-                    $result = $con->query($sql);
-
-                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        echo '
-                        <div class="w3-display-container">
-                            <div>ID: ' . $row["id"] . '</div>
-                            <div>Name: ' . $row["name"] . '</div>
-                            <div>E-mail: ' . $row["email"] . '</div>
-                            <div>Subject: ' . $row["subject"] . '</div>
-                            <div>Comment: ' . $row["comment"] . '</div>
-                        </div>';
-                    }
-                }
-
-                catch(PDOException $e)
-                {
-                    echo "Connection failed: " . $e->getMessage();
-                }
-            ?>
-        </div>
-    </section>
-
-
-
+    
     <img src="assets/map_y6jI.jpg" class="w3-image" alt="Map" style="width:100%">
     <footer class="w3-center w3-black w3-container">
         <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
