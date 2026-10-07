@@ -1,9 +1,30 @@
 <?php
+require "../../config.php";
+
 session_start();
 
 if (!isset($_SESSION["user"])) {
     header("Location: ../login/");
     exit();
+}
+
+$user = [];
+
+try
+{
+    $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql = "SELECT * FROM `users` WHERE id = '$_SESSION[user]';";
+    $result = $con->query($sql);
+
+    if ($result->rowCount() > 0) {
+        $user = $result->fetch(PDO::FETCH_ASSOC);
+    }
+}
+catch(PDOException $e)
+{
+    echo "Connection failed: " . $e->getMessage();
 }
 
 ?>
@@ -35,7 +56,7 @@ if (!isset($_SESSION["user"])) {
 </head>
 <body>
     <h1>Logged Out</h1>
-    <h2>You have been logged out <?php echo $_SESSION["username"] ?>.</h2>
+    <h2>You have been logged out <?php echo $user["name"] ?>.</h2>
     <a href="../../">Go back</a>
 </body>
 </html>
