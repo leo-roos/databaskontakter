@@ -14,26 +14,33 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     
-    $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
-    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $sql = "SELECT * FROM `users` WHERE name = :username;";
-    $result = $con->prepare($sql);
-    $result->execute(['username' => $username]);
+    try
+        {
+        $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
+        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $sql = "SELECT * FROM `users` WHERE name = :username;";
+        $result = $con->prepare($sql);
+        $result->execute(['username' => $username]);
 
-    if ($result->rowCount() > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        if ($result->rowCount() > 0) {
+            $row = $result->fetch(PDO::FETCH_ASSOC);
 
-        if (password_verify($password, $row["password_hash"])) {
-            $_SESSION["user"] = $row["id"];
-            $_SESSION["logged_in"] = true;
-            header("Location: ../");
-            exit();
+            if (password_verify($password, $row["password_hash"])) {
+                $_SESSION["user"] = $row["id"];
+                $_SESSION["logged_in"] = true;
+                header("Location: ../");
+                exit();
+            } else {
+                $failedLogin = true;
+            }
         } else {
             $failedLogin = true;
         }
-    } else {
-        $failedLogin = true;
+    }
+    catch (PDOException $e) {
+        error_log("Connection failed: " . $e->getMessage());
+        echo "Ett server fel uppstod! Kontakta hemsidans ägare för hjälp.";
     }
 }
 ?>
