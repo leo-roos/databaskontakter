@@ -66,37 +66,23 @@ catch(PDOException $e)
         <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contacts</h2>
 
         <div class="w3-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
-            <?php
-                try
-                {
-                    foreach($contactArray as $row) {
-                        ?>
+            <?php foreach($contactArray as $row): ?>
+                <div class="w3-display-container">
+                    <div>ID: <?php echo htmlspecialchars($row["id"]); ?></div>
+                    <div>Name: <?php echo htmlspecialchars($row["name"]); ?></div>
+                    <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
+                    <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
+                    <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
 
-                        <div class="w3-display-container">
-                            <div>ID: <?php echo htmlspecialchars($row["id"]); ?></div>
-                            <div>Name: <?php echo htmlspecialchars($row["name"]); ?></div>
-                            <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
-                            <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
-                            <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
-
-                           <form action="delete/index.php" method="POST">
-                                <input type="hidden" name="id" value="<?php echo $row["id"]; ?>">
-                                
-                                <button type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
-                                    Radera
-                                </button>
-                            </form>
-                        </div>
-
-                        <?php
-                    }
-                }
-
-                catch(PDOException $e)
-                {
-                    echo "Connection failed: " . $e->getMessage();
-                }
-            ?>
+                    <form action="delete/index.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($row["id"]); ?>">
+                        
+                        <button type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
+                            Radera
+                        </button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
