@@ -9,6 +9,7 @@ if (!isset($_SESSION["user"]) && !$_SESSION["logged_in"]) {
 }
 
 $contactArray = [];
+$user = [];
 
 try
 {
@@ -20,6 +21,13 @@ try
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         array_push($contactArray, $row);
+    }
+
+    $sql = "SELECT * FROM `users` WHERE id = '$_SESSION[user]';";
+    $result = $con->query($sql);
+
+    if ($result->rowCount() > 0) {
+        $user = $result->fetch(PDO::FETCH_ASSOC);
     }
 }
 catch(PDOException $e)
@@ -48,7 +56,7 @@ catch(PDOException $e)
     </div>
     
     <section id="welcome" class="w3-container w3-padding-32">
-        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Välkommen <?php echo $_SESSION["username"] ?>!</h2>
+        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Välkommen <?php echo htmlspecialchars($user["name"]) ?>!</h2>
         <p>Här kan du se vilka personer som vill komma i kontakt med dig.</p>
     </section>
 
@@ -77,7 +85,6 @@ catch(PDOException $e)
                                     Radera
                                 </button>
                             </form>
-
                         </div>
 
                         <?php
