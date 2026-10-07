@@ -64,11 +64,11 @@ catch(PDOException $e)
                         ?>
 
                         <div class="w3-display-container">
-                            <div>ID: <?php echo $row["id"]; ?></div>
-                            <div>Name: <?php echo $row["name"]; ?></div>
-                            <div>E-mail: <?php echo $row["email"]; ?></div>
-                            <div>Subject: <?php echo $row["subject"]; ?></div>
-                            <div>Comment: <?php echo $row["comment"]; ?></div>
+                            <div>ID: <?php echo htmlspecialchars($row["id"]); ?></div>
+                            <div>Name: <?php echo htmlspecialchars($row["name"]); ?></div>
+                            <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
+                            <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
+                            <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
 
                            <form action="delete/index.php" method="POST">
                                 <input type="hidden" name="id" value="<?php echo $row["id"]; ?>">
