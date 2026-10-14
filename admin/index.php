@@ -67,30 +67,32 @@ catch(PDOException $e)
 
         <div class="w3-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
             <?php foreach($contactArray as $row): ?>
-                <div class="w3-display-container">
-                    <div>ID: <?php echo htmlspecialchars($row["id"]); ?></div>
-                    <div>Name: <?php echo htmlspecialchars($row["name"]); ?></div>
-                    <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
-                    <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
-                    <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
-                    <div>Created at: <?php echo htmlspecialchars($row["created_at"]); ?></div>
-                    <?php if($row["is_deleted"]): ?>
-                        <div>Deleted at: <?php echo htmlspecialchars($row["deleted_at"]); ?></div>
-                    <?php endif; ?>
-                    
-                    <form action="delete/index.php" method="POST">
-                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($row["id"]); ?>">
-                        
-                        <button <?php if($row["is_deleted"]) echo "disabled"; ?> formaction="delete/index.php" type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
-                            Radera
-                        </button>
+                <?php if(!$row["is_deleted"]): ?> <!-- no longer show deleted rows -->
+                    <div class="w3-display-container">
+                        <div>ID: <?php echo htmlspecialchars($row["id"]); ?></div>
+                        <div>Name: <?php echo htmlspecialchars($row["name"]); ?></div>
+                        <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
+                        <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
+                        <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
+                        <div>Created at: <?php echo htmlspecialchars($row["created_at"]); ?></div>
                         <?php if($row["is_deleted"]): ?>
-                           <button formaction="restore/index.php" type="submit" onclick="return confirm('Är du säker på att du vill ta tillbaka detta?');">
-                                Ta tillbaka
-                            </button> 
+                            <div>Deleted at: <?php echo htmlspecialchars($row["deleted_at"]); ?></div>
                         <?php endif; ?>
-                    </form>
-                </div>
+                        
+                        <form action="delete/index.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($row["id"]); ?>">
+                            
+                            <button <?php if($row["is_deleted"]) echo "disabled"; ?> formaction="delete/index.php" type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
+                                Radera
+                            </button>
+                            <?php if($row["is_deleted"]): ?>
+                            <button formaction="restore/index.php" type="submit" onclick="return confirm('Är du säker på att du vill ta tillbaka detta?');">
+                                    Ta tillbaka
+                                </button> 
+                            <?php endif; ?>
+                        </form>
+                    </div>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </section>
