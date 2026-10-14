@@ -14,7 +14,18 @@ if (!isset($_POST["id"])) {
 }
 
 $id = $_POST["id"];
+?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<?php
 try
 {
     $con = new PDO("mysql:host=" . DB_servername . ";dbname=" . DB_name . ";charset=utf8mb4", DB_username, DB_password);
@@ -38,3 +49,8 @@ catch(PDOException $e)
     error_log("Connection failed: " . $e->getMessage());
     echo "Ett server fel uppstod! Kontakta hemsidans ägare för hjälp.";
 }
+?>
+
+    <a href="../">Gå tillbaka</a>
+</body>
+</html>
