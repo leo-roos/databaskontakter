@@ -24,9 +24,9 @@ try
     $stmt->execute(['id' => $id]);
     $contactData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($contactData) {
-        $deleteStmt = $con->prepare("DELETE FROM `contact` WHERE id = :id");
-        $deleteStmt->execute(['id' => $id]);
+    if ($contactData && !$contactData["is_deleted"]) {
+        $deleteStmt = $con->prepare("UPDATE `contact` SET is_deleted = :is_deleted, deleted_at = NOW() WHERE id = :id");
+        $deleteStmt->execute(['id' => $id, 'is_deleted' => 1]);
         
         echo "Kontakten från " . $contactData['name'] . " har raderats.";
     } else {

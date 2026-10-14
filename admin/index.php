@@ -74,14 +74,21 @@ catch(PDOException $e)
                     <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
                     <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
                     <div>Created at: <?php echo htmlspecialchars($row["created_at"]); ?></div>
-
+                    <?php if($row["is_deleted"]): ?>
+                        <div>Deleted at: <?php echo htmlspecialchars($row["deleted_at"]); ?></div>
+                    <?php endif; ?>
                     
                     <form action="delete/index.php" method="POST">
                         <input type="hidden" name="id" value="<?php echo htmlspecialchars($row["id"]); ?>">
                         
-                        <button type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
+                        <button <?php if($row["is_deleted"]) echo "disabled"; ?> formaction="delete/index.php" type="submit" onclick="return confirm('Är du säker på att du vill radera detta?');">
                             Radera
                         </button>
+                        <?php if($row["is_deleted"]): ?>
+                           <button formaction="restore/index.php" type="submit" onclick="return confirm('Är du säker på att du vill ta tillbaka detta?');">
+                                Ta tillbaka
+                            </button> 
+                        <?php endif; ?>
                     </form>
                 </div>
             <?php endforeach; ?>
