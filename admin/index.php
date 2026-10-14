@@ -73,6 +73,7 @@ catch(PDOException $e)
                     <div>E-mail: <?php echo htmlspecialchars($row["email"]); ?></div>
                     <div>Subject: <?php echo htmlspecialchars($row["subject"]); ?></div>
                     <div>Comment: <?php echo htmlspecialchars($row["comment"]); ?></div>
+                    <div>Created at: <?php echo htmlspecialchars($row["created_at"]); ?></div>
 
                     <form action="delete/index.php" method="POST">
                         <input type="hidden" name="id" value="<?php echo htmlspecialchars($row["id"]); ?>">
