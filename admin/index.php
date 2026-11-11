@@ -23,11 +23,11 @@ try
         array_push($contactArray, $row);
     }
 
-    $sql = "SELECT * FROM `users` WHERE id = '$_SESSION[user]';";
-    $result = $con->query($sql);
+    $stmt = $con->prepare("SELECT * FROM `users` WHERE id = :id");
+    $stmt->execute(['id' => $_SESSION['user']]);
 
-    if ($result->rowCount() > 0) {
-        $user = $result->fetch(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 catch(PDOException $e)
